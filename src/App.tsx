@@ -3,13 +3,15 @@ import { useState } from 'react';
 import ChuckCard from './components/chuck_card';
 import ChuckInfo from './components/chuck_info';
 import Joke from './joke';
+import ChuckJoke from './components/chuck_joke';
 
 function App() {
 
 	const [chuckGreeting, setChuckGreeting] = useState<string>("I am Chuck Norris!!!")
 	const [whalesSaved, setWhalesSaved] = useState<number>(700)
 	const [roundHouseKicks, setRoundHouseKicks] = useState<number>(300000)
-	const [jokes, setJokes] = useState<Array<Joke>>([{
+	const [jokes, setJokes] = useState<Array<Joke>>([
+	{
 		"id": 1,
 		"joke": "Chuck Norris doesn’t read books. He stares them down until he gets the information he wants.",
 	},
@@ -24,21 +26,40 @@ function App() {
 	{
 		"id": 4,
 		"joke": "Chuck Norris does not own a stove, oven, or microwave, because revenge is a dish best served cold.",
-	}])
+	},
+	{
+		"id": 5,
+		"joke": "Chuck Norris once threw a grenade and killed 50 men. It exploded and killed 20 more. Then he threw the pin and killed 10 more men.",
+	},
+	{
+		"id": 6,
+		"joke": "When Alexander Graham Bell finally finished inventing the telephone, he had 3 missed calls from Chuck Norris.",
+	},
+	{
+		"id": 7,
+		"joke": "Chuck Norris can kill two stones with one bird.",
+	}
+	]);
+
+	const filteredJokes: Array<Joke> = jokes.filter(joke => joke.id === 3);
 
 	return (
 		<div className="App">
 
 			<h1>React props and state</h1>
-			<ChuckCard />
+			<ChuckCard message={chuckGreeting} />
 
 			<h2>Chuck Info: </h2>
-			<ChuckInfo />
+			<ChuckInfo numberOfWhalesSaved={whalesSaved} numberOfRoundHouseKicks={roundHouseKicks}/>
 
 			<h2>Jokes: </h2>
+			{jokes.map(joke => <ChuckJoke id={joke.id} joke={joke.joke} />)}
+
+			<h2>Filtered Jokes: </h2>
+			{filteredJokes.map(joke => <ChuckJoke id={joke.id} joke={joke.joke} />)}
 
 		</div>
 	);
-}
+};
 
 export default App;
